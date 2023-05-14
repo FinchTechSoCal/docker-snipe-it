@@ -36,7 +36,7 @@ services:
       - MYSQL_USER=snipeituser #optional
       - MYSQL_PASSWORD=${MYSQLSA} #optional
     volumes:
-      - ${LOCVOL1}teemip-db:/config
+      - ${LOCVOL1}snipeit-db:/config
     #ports:
     #  - 3306:3306
     restart: unless-stopped
