@@ -48,12 +48,6 @@ services:
     #  - 3306:3306
     restart: unless-stopped
 #
-  adminer:
-    image: adminer:latest
-    restart: unless-stopped
-    #ports:
-    #  - 8101:8080
-#
 #
 #
 networks:
