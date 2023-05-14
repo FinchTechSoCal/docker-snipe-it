@@ -2,33 +2,28 @@
 version: "2.1"
 services:
   snipe-it:
-    image: snipe/snipe-it
+    image: lscr.io/linuxserver/snipe-it:latest
     container_name: snipe-it
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
-      - APP_TIMEZONE=${TZ}
       - APP_URL=https://cmdb.finchtech.com
       - MYSQL_PORT_3306_TCP_ADDR=db
       - MYSQL_PORT_3306_TCP_PORT=3306
       - MYSQL_DATABASE=snipeit
       - MYSQL_USER=snipeituser
-      - MYSQL_ROOT_PASSWORD=${MYSQLSA}
       - MYSQL_PASSWORD=${MYSQLSA}
+      - DOCKER_MODS=linuxserver/mods:swag-imagemagick|linuxserver/mods:universal-cron
       - MAIL_PORT_587_TCP_ADDR=mailserver
-      - MAIL_PORT_587_TCP_PORT=587
+      - MAIL_PORT_587_TCP_PORT=25
       - MAIL_ENV_FROM_ADDR=allen@finchtech.com
-      - MAIL_ENV_FROM_NAME=FinchTech
+      - MAIL_ENV_FROM_NAME=allen@finchtech.com
       - MAIL_ENV_ENCRYPTION=tcp
       - MAIL_ENV_USERNAME=messenger@finchtech.com
       - MAIL_ENV_PASSWORD=${MSGPASSWORD}
-      - APP_ENV=production
-      - APP_DEBUG=false
-      - APP_KEY=${APPKEY}
-      - APP_LOCALE=en
     volumes:
-      - ${LOCVOL1}snipe-it:/var/lib/snipeit
+      - ${LOCVOL1}snipe-it:/config
     #ports:
     #  - 80:80
     #  - 443:443
