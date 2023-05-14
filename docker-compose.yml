@@ -15,6 +15,13 @@ services:
       - MYSQL_USER=snipeituser
       - MYSQL_PASSWORD=${MYSQLSA}
       - DOCKER_MODS=linuxserver/mods:swag-imagemagick|linuxserver/mods:universal-cron
+      - MAIL_PORT_587_TCP_ADDR=mailserver
+      - MAIL_PORT_587_TCP_PORT=25
+      - MAIL_ENV_FROM_ADDR=messenger@finchtech.com
+      - MAIL_ENV_FROM_NAME=messenger@finchtech.com
+      - MAIL_ENV_ENCRYPTION=MYSQL_PORT_3306_TCP_PORT
+      - MAIL_ENV_USERNAME=messenger@finchtech.com
+      - MAIL_ENV_PASSWORD=${MSGPASSWORD}
     volumes:
       - ${LOCVOL1}snipe-it:/config
     #ports:
