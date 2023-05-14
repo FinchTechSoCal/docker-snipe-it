@@ -19,7 +19,7 @@ services:
       - MAIL_PORT_587_TCP_PORT=25
       - MAIL_ENV_FROM_ADDR=allen@finchtech.com
       - MAIL_ENV_FROM_NAME=allen@finchtech.com
-      - MAIL_ENV_ENCRYPTION=MYSQL_PORT_3306_TCP_PORT
+      - MAIL_ENV_ENCRYPTION=tcp
       - MAIL_ENV_USERNAME=messenger@finchtech.com
       - MAIL_ENV_PASSWORD=${MSGPASSWORD}
     volumes:
