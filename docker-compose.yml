@@ -1,0 +1,55 @@
+---
+version: "2.1"
+services:
+  snipe-it:
+    image: lscr.io/linuxserver/snipe-it:latest
+    container_name: snipe-it
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - APP_URL=http://localhost:8080
+      - MYSQL_PORT_3306_TCP_ADDR=db
+      - MYSQL_PORT_3306_TCP_PORT=3306
+      - MYSQL_DATABASE=snipeit
+      - MYSQL_USER=snipeituser
+      - MYSQL_PASSWORD=${MYSQLSA}
+      - DOCKER_MODS=linuxserver/mods:letsencrypt-imagemagick|linuxserver/mods:universal-cron
+    volumes:
+      - ${LOCVOL1}snipe-it:/config
+    #ports:
+    #  - 80:80
+    #  - 443:443
+    restart: unless-stopped
+    depends_on:
+    - db
+#
+  db:
+    image: lscr.io/linuxserver/mariadb:latest
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - DOCKER_MODS=linuxserver/mods:universal-cron
+      - MYSQL_ROOT_PASSWORD=${MYSQLSA}
+      - MYSQL_DATABASE=snipeit #optional
+      - MYSQL_USER=snipeituser #optional
+      - MYSQL_PASSWORD=${MYSQLSA} #optional
+    volumes:
+      - ${LOCVOL1}teemip-db:/config
+    #ports:
+    #  - 3306:3306
+    restart: unless-stopped
+#
+  adminer:
+    image: adminer:latest
+    restart: unless-stopped
+    #ports:
+    #  - 8101:8080
+#
+#
+#
+networks:
+  default:
+    external: true
+    name: ${CONNET}
