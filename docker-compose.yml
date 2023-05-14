@@ -33,6 +33,7 @@ services:
 #
   db:
     image: lscr.io/linuxserver/mariadb:latest
+    container_name: snipe-it-db
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
