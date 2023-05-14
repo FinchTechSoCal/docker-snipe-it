@@ -13,7 +13,7 @@ services:
       - MYSQL_PORT_3306_TCP_ADDR=db
       - MYSQL_PORT_3306_TCP_PORT=3306
       - MYSQL_DATABASE=snipeit
-      - MYSQL_USER=snipeituser
+      - MYSQL_USER=snipeit
       - MYSQL_ROOT_PASSWORD=${MYSQLSA}
       - MYSQL_PASSWORD=${MYSQLSA}
       - MAIL_PORT_587_TCP_ADDR=mailserver
@@ -40,21 +40,39 @@ services:
     - db
 #
   db:
-    image: lscr.io/linuxserver/mariadb:latest
+    image: mysql:5.6
     container_name: snipe-it-db
     environment:
       - PUID=${PUID}
       - PGID=${PGID}
       - TZ=${TZ}
-      - DOCKER_MODS=linuxserver/mods:universal-cron
+      - APP_TIMEZONE=${TZ}
+      - APP_URL=https://cmdb.finchtech.com
+      - MYSQL_PORT_3306_TCP_ADDR=db
+      - MYSQL_PORT_3306_TCP_PORT=3306
+      - MYSQL_DATABASE=snipeit
+      - MYSQL_USER=snipeit
       - MYSQL_ROOT_PASSWORD=${MYSQLSA}
-      - MYSQL_DATABASE=snipeit #optional
-      - MYSQL_USER=snipeituser #optional
-      - MYSQL_PASSWORD=${MYSQLSA} #optional
+      - MYSQL_PASSWORD=${MYSQLSA}
+      - MAIL_PORT_587_TCP_ADDR=mailserver
+      - MAIL_PORT_587_TCP_PORT=587
+      - MAIL_ENV_FROM_ADDR=allen@finchtech.com
+      - MAIL_ENV_FROM_NAME=FinchTech
+      - MAIL_ENV_ENCRYPTION=tcp
+      - MAIL_ENV_USERNAME=messenger@finchtech.com
+      - MAIL_ENV_PASSWORD=${MSGPASSWORD}
+      - APP_ENV=production
+      - APP_DEBUG=true
+      - APP_KEY=${APPKEY}
+      - APP_LOCALE=en
+      - PHP_UPLOAD_LIMIT=100
+      - APP_TRUSTED_PROXIES=REMOTE_ADDR
+      - SECURE_COOKIES=true
     volumes:
-      - ${LOCVOL1}snipe-it-db:/config
+      - ${LOCVOL1}snipe-it-db:/var/lib/mysql
     #ports:
-    #  - 3306:3306
+    #  - 80:80
+    #  - 443:443
     restart: unless-stopped
 #
 #
