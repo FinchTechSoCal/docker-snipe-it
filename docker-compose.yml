@@ -14,7 +14,7 @@ services:
       - MYSQL_DATABASE=snipeit
       - MYSQL_USER=snipeituser
       - MYSQL_PASSWORD=${MYSQLSA}
-      - DOCKER_MODS=linuxserver/mods:letsencrypt-imagemagick|linuxserver/mods:universal-cron
+      - DOCKER_MODS=linuxserver/mods:swag-imagemagick|linuxserver/mods:universal-cron
     volumes:
       - ${LOCVOL1}snipe-it:/config
     #ports:
