@@ -24,9 +24,12 @@ services:
       - MAIL_ENV_USERNAME=messenger@finchtech.com
       - MAIL_ENV_PASSWORD=${MSGPASSWORD}
       - APP_ENV=production
-      - APP_DEBUG=false
+      - APP_DEBUG=true
       - APP_KEY=${APPKEY}
       - APP_LOCALE=en
+      - PHP_UPLOAD_LIMIT=100
+      - APP_TRUSTED_PROXIES=REMOTE_ADDR
+      - SECURE_COOKIES=true
     volumes:
       - ${LOCVOL1}snipe-it:/var/lib/snipeit
     #ports:
