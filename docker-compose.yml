@@ -10,7 +10,7 @@ services:
       - TZ=${TZ}
       - APP_TIMEZONE=${TZ}
       - APP_URL=https://cmdb.finchtech.com
-      - MYSQL_PORT_3306_TCP_ADDR=db
+      - MYSQL_PORT_3306_TCP_ADDR=snipe-it-db
       - MYSQL_PORT_3306_TCP_PORT=3306
       - MYSQL_DATABASE=snipeit
       - MYSQL_USER=root
@@ -32,7 +32,7 @@ services:
       - SECURE_COOKIES=true
     volumes:
       - ${LOCVOL1}snipe-it:/var/lib/snipeit
-    #ports:
+    ports:
     #  - 80:80
     #  - 443:443
     restart: unless-stopped
