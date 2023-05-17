@@ -1,0 +1,65 @@
+---
+version: "2.1"
+services:
+  snipe-it:
+    image: lscr.io/linuxserver/snipe-it:latest
+    container_name: snipe-it
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - APP_URL=${APP_URL}
+      - MYSQL_PORT_3306_TCP_ADDR=${MYSQL_PORT_3306_TCP_ADDR}
+      - MYSQL_PORT_3306_TCP_PORT=${MYSQL_PORT_3306_TCP_PORT}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - DOCKER_MODS=linuxserver/mods:universal-cron
+      - MAIL_PORT_587_TCP_ADDR=${MAIL_PORT_587_TCP_ADDR}
+      - MAIL_PORT_587_TCP_PORT=${MAIL_PORT_587_TCP_PORT}
+      - MAIL_ENV_FROM_ADDR=${MAIL_ENV_FROM_ADDR}
+      - MAIL_ENV_FROM_NAME=${MAIL_ENV_FROM_NAME}
+      - MAIL_ENV_ENCRYPTION=tcp
+      - MAIL_ENV_USERNAME=${MAIL_ENV_USERNAME}
+      - MAIL_ENV_PASSWORD=${MAIL_ENV_PASSWORD}
+      - APP_ENV=${APP_ENV}
+      - APP_DEBUG=${APP_DEBUG}
+      #- APP_KEY=${APPKEY}
+      - APP_LOCALE=${APP_LOCALE}
+      - PHP_UPLOAD_LIMIT=${PHP_UPLOAD_LIMIT}
+      - APP_TRUSTED_PROXIES=${APP_TRUSTED_PROXIES}
+      - SECURE_COOKIES=${SECURE_COOKIES}
+    volumes:
+      - ${LOCVOL1}snipe-it/app:/config
+    #ports:
+    #  - 80:80
+    #  - 443:443
+    restart: unless-stopped
+    depends_on:
+    - db
+#
+  db:
+    image: lscr.io/linuxserver/mariadb:latest
+    container_name: snipe-it-db
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - DOCKER_MODS=linuxserver/mods:universal-cron
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    volumes:
+      - ${LOCVOL1}snipe-it/db:/config
+    #ports:
+    #  - 3306:3306
+    restart: unless-stopped
+#
+#
+#
+networks:
+  default:
+    external: true
+    name: ${CONNET}
