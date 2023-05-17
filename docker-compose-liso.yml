@@ -37,9 +37,9 @@ services:
     #  - 443:443
     restart: unless-stopped
     depends_on:
-    - db
+    - snipe-it-db
 #
-  db:
+  snipe-it-db:
     image: lscr.io/linuxserver/mariadb:latest
     container_name: snipe-it-db
     environment:
